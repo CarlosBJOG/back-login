@@ -1,6 +1,6 @@
 const Usuario = require('../models/usuario');
 const Role = require('../models/role');
-
+const TypeMovement = require('../models/tiposDeMovimiento');
 
 
 
@@ -34,6 +34,29 @@ const usuarioIsActive = async ( id = '' ) => {
 }
 
 
+//validaciones de tipos de movimiento 
+
+const typeMovementExist = async ( tipo_movimiento = '' ) => {
+    
+    const tipoMovimiento =  await TypeMovement.findOne({ tipo_movimiento: tipo_movimiento.toUpperCase() });
+    
+    if( tipoMovimiento ) {
+        throw new Error( `El tipo de movimiento ${tipoMovimiento.tipo_movimiento} ya existe en la bd`);
+ 
+    }
+}
+
+const isTypeMovementActive = async ( id = '' ) => {
+
+    const tipoMovimiento = await TypeMovement.findById( id );
+    console.log( tipoMovimiento.estado)
+    if( !tipoMovimiento.estado ) {
+        throw new Error(`El movimiento esta desactivado de la BD`);
+
+    }
+
+}
+
 
 
 
@@ -43,5 +66,7 @@ module.exports = {
     esRoleValido,
     existeUsuarioById,
     usuarioIsActive,
+    typeMovementExist,
+    isTypeMovementActive
 
 }

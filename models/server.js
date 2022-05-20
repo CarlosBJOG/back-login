@@ -11,6 +11,8 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             usuarios: '/api/usuarios',
+            typesmovements: '/api/types/movements',
+
         }
 
         this.conectarDb();
@@ -38,6 +40,8 @@ class Server {
     routes(){
         this.app.use( this.paths.auth, require('../routes/auth'));
         this.app.use( this.paths.usuarios, require('../routes/usuarios'));
+        this.app.use( this.paths.typesmovements, require('../routes/typesMovements'));
+
 
 
     }
